@@ -15,7 +15,6 @@ hs_err_pid*
 
 *.png
 *.jpg
-*.properties
 Images/
 dist/
 build/
