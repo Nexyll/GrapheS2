@@ -38,6 +38,10 @@ public class Carte {
         return (j-1)*size +i;
     }
     
+    /**
+     * Peut encore être optimisé (calcule de taille*3) test j+1 etc...
+     * @return Le graphe correspondant à la grille
+     */
     public Graphe getGrapheGrille(){
         Graphe graphe = new Graphe(taille);
         //Ligne
