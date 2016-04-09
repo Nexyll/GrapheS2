@@ -34,6 +34,35 @@ public class Carte {
         this.caseSelectionnee = null;
     }
     
+    private int coords(int i, int j, int size){
+        return (j-1)*size +i;
+    }
+    
+    public Graphe getGrapheGrille(){
+        Graphe graphe = new Graphe(taille);
+        //Ligne
+         for (int j = 1; j <= taille*3; j++){
+            //Colonne
+             for (int i = 1; i <= taille; i++){
+                 if(j+1<= taille*3)
+                     graphe.ajouterArc(coords(i, j ,taille), coords(i, j+1, taille), 1);
+                 if(j+2<= taille*3)
+                     graphe.ajouterArc(coords(i, j ,taille), coords(i, j+2, taille), 1);
+                 
+                 //Numéro de ligne pair
+                 if(j%2 == 0){
+                    if(i+1<= taille && j+1 <= taille*3)
+                        graphe.ajouterArc(coords(i, j ,taille), coords(i+1, j+1, taille), 1);
+                 }
+                 //Numéro de ligne impair
+                 else{
+                     if(i-1>0 && j+1<=taille*3)
+                        graphe.ajouterArc(coords(i, j ,taille), coords(i-1, j+1, taille), 1);
+                 }
+            }
+        }
+        return graphe;
+    }
     
     //getteur de la taille de la map
     public int getTaille() {
