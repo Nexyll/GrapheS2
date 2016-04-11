@@ -54,8 +54,13 @@ public class Graphe {
         }
     }
     
+    public void isolerSommet(int i){
+        for (int j = 1; j <= this.nbSommet; j++) {
+            this.ajouterArc(i, j, 0);
+        }
+    }
     //renvoie la valeur du coefficient (i,j) de la matrice d'adjacence (0 par défaut)
-    public int getMatrice(int i,int j) {
+    public int getMatrice(int i, int j) {
         if(i<=0 || j<=0) {
             System.err.println("Erreur ! La matrice d'adjacence ne possède pas de coefficient ("+i+","+j+") !");
         }

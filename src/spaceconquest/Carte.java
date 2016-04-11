@@ -7,6 +7,7 @@ import java.util.HashMap;
 import spaceconquest.Map.Case;
 import spaceconquest.Map.Couleur;
 import spaceconquest.Map.Couple;
+import spaceconquest.ObjetCeleste.Etoile;
 import spaceconquest.ObjetCeleste.ObjetCeleste;
 import spaceconquest.Race.Vaisseau;
 
@@ -43,7 +44,7 @@ public class Carte {
      * @return Le graphe correspondant à la grille
      */
     public Graphe getGrapheGrille(){
-        Graphe graphe = new Graphe(taille);
+        Graphe graphe = new Graphe(taille*taille*3);
         //Ligne
          for (int j = 1; j <= taille*3; j++){
             //Colonne
@@ -63,6 +64,22 @@ public class Carte {
                      if(i-1>0 && j+1<=taille*3)
                         graphe.ajouterArc(coords(i, j ,taille), coords(i-1, j+1, taille), 1);
                  }
+            }
+        }
+        return graphe;
+    }
+    
+    public Graphe getGrapheZombie(){
+        Graphe graphe = new Graphe(taille*taille*3);
+        graphe = getGrapheGrille();
+        for (int i = 1; i <= taille*3; i++) {
+            for (int j = 1; j <= taille; j++) {
+                ObjetCeleste obj = getCase(i, j).getObjetCeleste();
+                if (obj != null){
+                    if(obj.getType().equalsIgnoreCase("etoile")){
+                        graphe.isolerSommet(coords(i, j, taille));
+                    }
+                }
             }
         }
         return graphe;
