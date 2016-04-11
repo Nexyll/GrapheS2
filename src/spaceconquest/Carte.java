@@ -41,7 +41,7 @@ public class Carte {
     
     /**
      * Peut encore être optimisé (calcule de taille*3) test j+1 etc...
-     * @return Le graphe correspondant à la grille
+     * @return graphe correspondant à la grille
      */
     public Graphe getGrapheGrille(){
         Graphe graphe = new Graphe(taille*taille*3);
@@ -69,6 +69,10 @@ public class Carte {
         return graphe;
     }
     
+    /**
+     * 
+     * @return graphe correspondant au déplacement des zombies
+     */
     public Graphe getGrapheZombie(){
         Graphe graphe = new Graphe(taille*taille*3);
         graphe = getGrapheGrille();
@@ -76,13 +80,46 @@ public class Carte {
             for (int j = 1; j <= taille; j++) {
                 ObjetCeleste obj = getCase(i, j).getObjetCeleste();
                 if (obj != null){
-                    if(obj.getType().equalsIgnoreCase("etoile")){
+                    if(obj.getType().equalsIgnoreCase("etoile"))
                         graphe.isolerSommet(coords(i, j, taille));
-                    }
                 }
             }
         }
         return graphe;
+    }
+    
+    /**
+     * 
+     * @return graphe correspondant au déplacement des licornes.
+     */
+    public Graphe getGrapheLicorne(){
+        Graphe graphe = new Graphe(taille*taille*3);
+        graphe = getGrapheGrille();
+        for (int i = 1; i <= taille*3; i++) {
+            for (int j = 1; j <= taille; j++) {
+                ObjetCeleste obj = getCase(i, j).getObjetCeleste();
+                if (obj != null){
+                    if(obj.getType().equalsIgnoreCase("etoile"))
+                        graphe.isolerSommet(coords(i, j, taille));
+                    if(obj.getType().equalsIgnoreCase("asteroide"))
+                        graphe.ajouterContrainte(coords(i, j, taille), 2);
+                }
+            }
+        }
+        return graphe;
+    }
+    
+    /**
+     * Colore toute les cases de la carte en blanc
+     */
+    public void effacerColoration(){
+        for(int i = 1;i <= 3*taille; i++) {
+            for(int j = 1; j <= taille; j++) {
+                Case cas = getCase(i ,j);
+                cas.setCouleur(Couleur.Blanc);
+                this.cases.put(new Couple(i,j), cas);
+            }
+        }
     }
     
     //getteur de la taille de la map

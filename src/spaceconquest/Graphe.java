@@ -53,12 +53,27 @@ public class Graphe {
             this.modifierMatrice(fin, deb, l);
         }
     }
-    
+    /**
+     * Détruit tout les liens entre le sommet i et les autres sommets.
+     * @param i numéro du sommet
+     */
     public void isolerSommet(int i){
         for (int j = 1; j <= this.nbSommet; j++) {
             this.ajouterArc(i, j, 0);
         }
     }
+    
+    /**
+     * Méthode servant à traduire la contrainte de déplacement des licornes.
+     * @param i numéro du sommet
+     * @param contrainte le nombre de la contrainte (2 pour les licornes)
+     */
+    public void ajouterContrainte(int i, int contrainte){
+        for (int j = 1; j <= this.nbSommet; j++) {
+            this.ajouterArc(i, j, contrainte);
+        }
+    }
+    
     //renvoie la valeur du coefficient (i,j) de la matrice d'adjacence (0 par défaut)
     public int getMatrice(int i, int j) {
         if(i<=0 || j<=0) {
