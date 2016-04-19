@@ -35,11 +35,16 @@ public class Carte {
         this.caseSelectionnee = null;
     }
     
-    private int coords(int i, int j, int size){
-        return (j-1)*size +i;
+    private int coords(int i, int j){
+        return (j-1)*taille +i;
+    }
+    
+    private int coords(Couple c){
+        return (c.getX()-1)*taille +c.getY();
     }
     
     /**
+     * Mouvement manquant, exemple de 1 à 7 methode à tester
      * Peut encore être optimisé (calcule de taille*3) test j+1 etc...
      * @return graphe correspondant à la grille
      */
@@ -50,19 +55,19 @@ public class Carte {
             //Colonne
              for (int i = 1; i <= taille; i++){
                  if(j+1<= taille*3)
-                     graphe.ajouterArc(coords(i, j ,taille), coords(i, j+1, taille), 1);
+                     graphe.ajouterArc(coords(i, j), coords(i, j+1), 1);
                  if(j+2<= taille*3)
-                     graphe.ajouterArc(coords(i, j ,taille), coords(i, j+2, taille), 1);
+                     graphe.ajouterArc(coords(i, j), coords(i, j+2), 1);
                  
                  //Numéro de ligne pair
                  if(j%2 == 0){
-                    if(i+1<= taille && j+1 <= taille*3)
-                        graphe.ajouterArc(coords(i, j ,taille), coords(i+1, j+1, taille), 1);
+                    if(i-1>0 && j+1 <= taille*3)
+                        graphe.ajouterArc(coords(i, j), coords(i-1, j+1), 1);
                  }
                  //Numéro de ligne impair
                  else{
-                     if(i-1>0 && j+1<=taille*3)
-                        graphe.ajouterArc(coords(i, j ,taille), coords(i-1, j+1, taille), 1);
+                     if(i+1<= taille && j+1<=taille*3)
+                        graphe.ajouterArc(coords(i, j), coords(i+1, j+1), 1);
                  }
             }
         }
@@ -81,7 +86,7 @@ public class Carte {
                 ObjetCeleste obj = getCase(i, j).getObjetCeleste();
                 if (obj != null){
                     if(obj.getType().equalsIgnoreCase("etoile"))
-                        graphe.isolerSommet(coords(i, j, taille));
+                        graphe.isolerSommet(coords(j, i));
                 }
             }
         }
@@ -89,7 +94,7 @@ public class Carte {
     }
     
     /**
-     * 
+     * Currently not working
      * @return graphe correspondant au déplacement des licornes.
      */
     public Graphe getGrapheLicorne(){
@@ -100,9 +105,9 @@ public class Carte {
                 ObjetCeleste obj = getCase(i, j).getObjetCeleste();
                 if (obj != null){
                     if(obj.getType().equalsIgnoreCase("etoile"))
-                        graphe.isolerSommet(coords(i, j, taille));
+                        graphe.isolerSommet(coords(j, i));
                     if(obj.getType().equalsIgnoreCase("asteroide"))
-                        graphe.ajouterContrainte(coords(i, j, taille), 2);
+                         graphe.ajouterContrainte(coords(j, i), taille);//Needs correcting.
                 }
             }
         }
@@ -117,7 +122,44 @@ public class Carte {
             for(int j = 1; j <= taille; j++) {
                 Case cas = getCase(i ,j);
                 cas.setCouleur(Couleur.Blanc);
-                this.cases.put(new Couple(i,j), cas);
+                this.cases.put(new Couple(i, j), cas);
+            }
+        }
+    }
+    
+    /**
+     * 
+     * @param c case départ ?
+     * @param g graphe modélisant les contraintes de déplacements
+     */
+    public void colorationMouvements(Couple c, Graphe g){
+        //Réinitialisation de la coloration
+        this.effacerColoration();
+        
+        //Coloration de la case selectionné en rouge
+        Case cas = getCase(c);
+        cas.setCouleur(Couleur.Rouge);
+        this.cases.put(c, cas);
+        
+        //On à besoin des sommets en relation avec le sommet coords(c.getX, c.getY)
+        int numSommet = coords(c);
+        
+        for (int i = 1; i < g.getNbSommet(); i++) {
+            if(g.getMatrice(numSommet, i) == 1){
+                int x = (i%taille != 0) ? i%taille : taille; //condition ternaire
+                int y = (i - x)/taille +1;
+
+                cas = getCase(y, x);
+                cas.setCouleur(Couleur.Vert);
+                this.cases.put(new Couple(y, x), cas);
+            }
+            if(g.getMatrice(numSommet, i) == 2){
+                int x = (i%taille != 0) ? i%taille : taille; //condition ternaire
+                int y = (i - x)/taille +1;
+
+                cas = getCase(y, x);
+                cas.setCouleur(Couleur.Jaune);
+                this.cases.put(new Couple(y, x), cas);
             }
         }
     }

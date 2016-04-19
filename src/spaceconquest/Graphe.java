@@ -70,7 +70,8 @@ public class Graphe {
      */
     public void ajouterContrainte(int i, int contrainte){
         for (int j = 1; j <= this.nbSommet; j++) {
-            this.ajouterArc(i, j, contrainte);
+            if(this.getMatrice(i,j) == 1)
+                this.ajouterArc(i, j, 2);
         }
     }
     
@@ -84,6 +85,25 @@ public class Graphe {
         }
         else {
             Couple c = new Couple(i,j);
+            if(this.matrice.containsKey(c)) {
+                return this.matrice.get(c);
+            }
+        }
+        return 0;
+    }
+    
+    //renvoie la valeur du coefficient (i,j) du couple c de la matrice d'adjacence (0 par défaut)
+    public int getMatrice(Couple c) {
+        int i = c.getX();
+        int j = c.getY();
+        
+        if(i<=0 || j<=0) {
+            System.err.println("Erreur ! La matrice d'adjacence ne possède pas de coefficient ("+i+","+j+") !");
+        }
+        else if(i>this.nbSommet || j>this.nbSommet) {
+            System.err.println("Erreur ! La matrice d'adjacence ne possède pas de coefficient ("+i+","+j+") !");
+        }
+        else {
             if(this.matrice.containsKey(c)) {
                 return this.matrice.get(c);
             }

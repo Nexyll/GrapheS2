@@ -4,6 +4,7 @@
 package spaceconquest;
 
 import spaceconquest.IHM.Fenetre;
+import spaceconquest.Map.Couple;
 import spaceconquest.TimerPartie;
 import spaceconquest.ObjetCeleste.ObjetCeleste;
 import spaceconquest.ObjetCeleste.Planete;
@@ -103,5 +104,8 @@ public class Partie {
         timer = new TimerPartie(this);
         //lancement de l'IHM
         this.fenetre = new Fenetre(this.carte);
+        
+        Graphe licorne = carte.getGrapheLicorne();
+        carte.colorationMouvements(new Couple(2,4), licorne);
     }
 }
