@@ -94,7 +94,7 @@ public class Carte {
     }
     
     /**
-     * Currently not working
+     * 
      * @return graphe correspondant au déplacement des licornes.
      */
     public Graphe getGrapheLicorne(){
@@ -107,7 +107,7 @@ public class Carte {
                     if(obj.getType().equalsIgnoreCase("etoile"))
                         graphe.isolerSommet(coords(j, i));
                     if(obj.getType().equalsIgnoreCase("asteroide"))
-                         graphe.ajouterContrainte(coords(j, i), taille);//Needs correcting.
+                         graphe.ajouterContrainte(coords(j, i), taille);
                 }
             }
         }
