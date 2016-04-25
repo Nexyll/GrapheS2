@@ -18,4 +18,5 @@ hs_err_pid*
 Images/
 dist/
 build/
+.idea/
 nbproject/private/
