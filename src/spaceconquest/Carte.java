@@ -144,24 +144,6 @@ public class Carte {
         //On à besoin des sommets en relation avec le sommet coords(c.getX, c.getY)
         int numSommet = coords(c);
         
-        for (int i = 1; i < g.getNbSommet(); i++) {
-            if(g.getMatrice(numSommet, i) == 1){
-                int x = (i%taille != 0) ? i%taille : taille; //condition ternaire
-                int y = (i - x)/taille +1;
-
-                cas = getCase(y, x);
-                cas.setCouleur(Couleur.Vert);
-                this.cases.put(new Couple(y, x), cas);
-            }
-            if(g.getMatrice(numSommet, i) == 2){
-                int x = (i%taille != 0) ? i%taille : taille; //condition ternaire
-                int y = (i - x)/taille +1;
-
-                cas = getCase(y, x);
-                cas.setCouleur(Couleur.Jaune);
-                this.cases.put(new Couple(y, x), cas);
-            }
-        }
     }
     
     //getteur de la taille de la map
