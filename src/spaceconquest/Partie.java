@@ -106,6 +106,6 @@ public class Partie {
         this.fenetre = new Fenetre(this.carte);
         
         Graphe licorne = carte.getGrapheLicorne();
-        carte.colorationMouvements(new Couple(2,4), licorne);
+        carte.colorationMouvements(new Couple(15,5), licorne);
     }
 }

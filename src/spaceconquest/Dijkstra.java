@@ -19,13 +19,14 @@ public class Dijkstra {
         initialisation();
     }
 
-    public int[] calcul(int a){
+    public int[] calcul(int arg){
+        int a = arg-1;
         d[a] = 0;
         while (nonMarque()){
             a = premierSommetMinimum();
             mark[a] = true;
 
-            for (int b = 0; b < g.getNbSommet(); b++) {
+            for (int b = 1; b <= g.getNbSommet(); b++) {
                 relachement(a, b);
             }
         }
