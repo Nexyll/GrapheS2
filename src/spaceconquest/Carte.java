@@ -7,7 +7,6 @@ import java.util.HashMap;
 import spaceconquest.Map.Case;
 import spaceconquest.Map.Couleur;
 import spaceconquest.Map.Couple;
-import spaceconquest.ObjetCeleste.Etoile;
 import spaceconquest.ObjetCeleste.ObjetCeleste;
 import spaceconquest.Race.Vaisseau;
 
@@ -135,6 +134,7 @@ public class Carte {
     public void colorationMouvements(Couple c, Graphe g){
         //Réinitialisation de la coloration
         this.effacerColoration();
+        Dijkstra calculateur = new Dijkstra(g);
         
         //Coloration de la case selectionné en rouge
         Case cas = getCase(c);
@@ -143,7 +143,20 @@ public class Carte {
         
         //On à besoin des sommets en relation avec le sommet coords(c.getX, c.getY)
         int numSommet = coords(c);
-        
+        int[] dist = calculateur.calcul(numSommet);
+        for(int i = 0 ; i < g.getNbSommet(); i++) {
+            int x = (i % taille != 0) ? i % taille : taille; //condition ternaire
+            int y = (i - x) / taille + 1;
+            if (dist[i] == 1) {
+                cas = getCase(y, x);
+                cas.setCouleur(Couleur.Vert);
+                cases.put(new Couple(y, x), cas);
+            } else if (dist[i] == 2) {
+                cas = getCase(y, x);
+                cas.setCouleur(Couleur.Jaune);
+                cases.put(new Couple(y, x), cas);
+            }
+        }
     }
     
     //getteur de la taille de la map

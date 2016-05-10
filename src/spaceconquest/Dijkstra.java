@@ -5,9 +5,9 @@ import java.util.ArrayList;
 public class Dijkstra {
     private Graphe g; // ne se change pas.
     private int infini;
-    boolean mark[];
-    int pi[];
-    int d[];
+    private boolean mark[];
+    private int pi[];
+    private int d[];
 
     public Dijkstra(Graphe g) {
         this.g = g;
@@ -91,4 +91,5 @@ public class Dijkstra {
             pi[b] = a;
         }
     }
+
 }
