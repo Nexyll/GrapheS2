@@ -33,6 +33,19 @@ public class Dijkstra {
         return d;
     }
 
+    public int plusCourtChemin(int a){
+        int tab[] = calcul(a);
+        int min = infini;
+        int res = -1;
+        for (int i = 0; i < tab.length; i++) {
+            if (min > tab[i]){
+                min = tab[i];
+                res = i;
+            }
+        }
+        return res;
+    }
+
     private boolean nonMarque(){
         for (boolean res : mark){
             if (!res) return true;
