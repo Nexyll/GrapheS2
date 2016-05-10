@@ -15,7 +15,6 @@ import spaceconquest.Race.Race;
 public class SpaceConquest {
     
     private static Partie partie;
-
     
     public static Race getTour() {
         return partie.getTour();
