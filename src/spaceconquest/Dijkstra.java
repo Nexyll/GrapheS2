@@ -26,7 +26,7 @@ public class Dijkstra {
             a = premierSommetMinimum();
             mark[a] = true;
 
-            for (int b = 1; b <= g.getNbSommet(); b++) {
+            for (int b = 0; b < g.getNbSommet(); b++) {
                 relachement(a, b);
             }
         }
@@ -59,7 +59,7 @@ public class Dijkstra {
         int res = -1;
         for (int i = 0 ; i < d.length ; i++){
             if (!mark[i]){
-                if (poidsMin > d[i]){
+                if (poidsMin >= d[i]){
                     res = i;
                     poidsMin = d[i];
                 }
@@ -87,8 +87,8 @@ public class Dijkstra {
     }
 
     private void relachement(int a, int b){
-        if ((d[b] > d[a] + g.getMatrice(a,b)) && g.getMatrice(a, b) != 0){
-            d[b] = d[a] + g.getMatrice(a, b);
+        if ((d[b] > d[a] + g.getMatrice(a+1,b+1)) && g.getMatrice(a+1, b+1) != 0){
+            d[b] = d[a] + g.getMatrice(a+1, b+1);
             pi[b] = a;
         }
     }

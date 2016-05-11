@@ -8,6 +8,7 @@ import spaceconquest.Map.Case;
 import spaceconquest.Map.Couleur;
 import spaceconquest.Map.Couple;
 import spaceconquest.ObjetCeleste.ObjetCeleste;
+import spaceconquest.Race.Race;
 import spaceconquest.Race.Vaisseau;
 
 /**
@@ -145,8 +146,8 @@ public class Carte {
         int numSommet = coords(c);
         int[] dist = calculateur.calcul(numSommet);
         for(int i = 0 ; i < g.getNbSommet(); i++) {
-            int x = (i % taille != 0) ? i % taille : taille; //condition ternaire
-            int y = (i - x) / taille + 1;
+            int x = ((i+1) % taille != 0) ? (i+1) % taille : taille;
+            int y = ((i+1) - x) / taille + 1;
             if (dist[i] == 1) {
                 cas = getCase(y, x);
                 cas.setCouleur(Couleur.Vert);
@@ -231,6 +232,7 @@ public class Carte {
                         //on selectionne la case
                         this.getCase(c).setCouleur(Couleur.Rouge);
                         this.caseSelectionnee = c;
+                        colorationMouvements(c, (SpaceConquest.getTour() == Race.Zombie) ? getGrapheZombie() : getGrapheLicorne());
                     }
                 }
             }
