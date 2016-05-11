@@ -48,6 +48,7 @@ public class SpaceConquest {
         //on definit le mode de jeu
         partie.setMode(Mode.manuel);
         //on lance l'IHM
+
         partie.start();
     }
     

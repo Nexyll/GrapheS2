@@ -209,7 +209,7 @@ public class Carte {
     public void selectionCase(Couple c) {
         if(c.equals(this.caseSelectionnee)) {
             //deselection de la case
-            this.getCase(c).setCouleur(Couleur.Blanc);
+            this.effacerColoration();
             this.caseSelectionnee = null;
         }
         else {
@@ -217,12 +217,14 @@ public class Carte {
             if(this.caseSelectionnee != null) {
                 //ajouter des conditions de déplacement
                 //on fait bouger le vaisseau
-                this.BougerVaisseau(this.caseSelectionnee, c);
-                //on déselectionne la case
-                this.getCase(this.caseSelectionnee).setCouleur(Couleur.Blanc);
-                this.caseSelectionnee = null;
-                //on passe le tour
-                SpaceConquest.tourSuivant();
+                if(this.getCase(caseSelectionnee).getCouleur()!=Couleur.Blanc.getCouleur()) {
+                    this.BougerVaisseau(this.caseSelectionnee, c);
+                    //on déselectionne la case
+                    this.effacerColoration();
+                    this.caseSelectionnee = null;
+                    //on passe le tour
+                    SpaceConquest.tourSuivant();
+                }
             }
             else {
                 //si aucune case n'avait été selectionné
