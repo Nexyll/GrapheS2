@@ -20,7 +20,7 @@ public class Graphe {
     public Graphe(int n) {
         this.nbSommet = n;
         this.matrice = new HashMap<>();
-        this.orienté = false;
+        this.orienté = true;
     }
     
     //renvoie le nombre de sommet du graphe    
@@ -53,25 +53,30 @@ public class Graphe {
             this.modifierMatrice(fin, deb, l);
         }
     }
+
+    //Crée un arc dans les deux sens.
+    public void ajouterDeuxArc(int deb, int fin, int l) {
+        this.modifierMatrice(deb, fin, l);
+        this.modifierMatrice(fin, deb, l);
+    }
     /**
      * Détruit tout les liens entre le sommet i et les autres sommets.
      * @param i numéro du sommet
      */
     public void isolerSommet(int i){
         for (int j = 1; j <= this.nbSommet; j++) {
-            this.ajouterArc(i, j, 0);
+            this.ajouterDeuxArc(i, j, 0);
         }
     }
     
     /**
      * Méthode servant à traduire la contrainte de déplacement des licornes.
      * @param i numéro du sommet
-     * @param contrainte le nombre de la contrainte (2 pour les licornes)
      */
-    public void ajouterContrainte(int i, int contrainte){
+    public void ajouterContrainte(int i){
         for (int j = 1; j <= this.nbSommet; j++) {
-            if(this.getMatrice(i,j) == 1)
-                this.ajouterArc(i, j, 2);
+            if(this.getMatrice(j, i) == 1)
+                this.ajouterArc(j, i, 2);
         }
     }
     

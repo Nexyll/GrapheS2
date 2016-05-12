@@ -5,9 +5,9 @@ package spaceconquest;
 
 import spaceconquest.IHM.Fenetre;
 import spaceconquest.Map.Couple;
-import spaceconquest.TimerPartie;
 import spaceconquest.ObjetCeleste.ObjetCeleste;
-import spaceconquest.ObjetCeleste.Planete;
+import spaceconquest.ObjetCeleste.PlaneteLicorne;
+import spaceconquest.ObjetCeleste.PlaneteShadok;
 import spaceconquest.Parties.Mode;
 import spaceconquest.Race.Race;
 import spaceconquest.Race.Vaisseau;
@@ -22,9 +22,11 @@ public class Partie {
     private final Carte carte;                                                  //Carte de la partie
     private Fenetre fenetre;                                                    //Fenetre de l'IHM
     
-    private Planete LicoLand;                                                   //monde d'origine des licornes
+    private PlaneteLicorne LicoLand;                                            //monde d'origine des licornes
+    private PlaneteShadok ShadoLand;                                            //Planete shadok
     private Vaisseau LicoShip;                                                  //Vaisseau Licorne
     private Vaisseau Zombificator;                                              //Vaisseau Zombie
+    private Vaisseau Shadoko;                                                   //Vaisseau shadok
    
     private TimerPartie timer;                                                  //timer pour le mode automatique
     
@@ -35,14 +37,22 @@ public class Partie {
         this.carte = new Carte(taille);
         
         this.LicoLand = null;
+        this.ShadoLand = null;
         this.LicoShip = null;
+        this.Shadoko = null;
         this.Zombificator = null;
     }
     
     //création de LicoLand 
     public void placerLicoLand(int i,int j) {
-        LicoLand = new Planete();
+        LicoLand = new PlaneteLicorne();
         this.carte.addObjetCeleste(LicoLand, i, j);
+    }
+
+    //création de shadoLand
+    public void placerShadoLand(int i, int j) {
+        ShadoLand = new PlaneteShadok();
+        this.carte.addObjetCeleste(ShadoLand, i, j);
     }
     
     //création du LicoShip 
@@ -50,7 +60,13 @@ public class Partie {
         this.LicoShip = new Vaisseau(Race.Licorne);
         this.carte.addVaisseau(LicoShip, i, j);
     }
-    
+
+    //création du shadoko
+    public void placerShadoko(int i, int j){
+        this.Shadoko = new Vaisseau(Race.Shadok);
+        this.carte.addVaisseau(Shadoko, i, j);
+    }
+
     //création du Zombificator 
     public void placerZombificator(int i,int j) {
         this.Zombificator = new Vaisseau(Race.Zombie);
@@ -97,7 +113,15 @@ public class Partie {
     public Carte getCarte() {
         return this.carte;
     }
-    
+
+    public Couple getLicoShipPosition(){
+        return LicoShip.getPosition();
+    }
+
+    public Couple getZombificatorPosition(){
+        return Zombificator.getPosition();
+    }
+
     //démarre la partie
     public void start() {
         //lance le timer

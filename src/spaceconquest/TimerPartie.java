@@ -14,12 +14,14 @@ import spaceconquest.Parties.Mode;
 public class TimerPartie extends Timer {
 
         private Partie partie;                                                  //partie en cours
-        
+        private Carte carte;
+
             
     //constructuer    
     public TimerPartie(Partie partie) {
         super();
         this.partie = partie;
+        this.carte = partie.getCarte();
         if(this.partie.getMode() == Mode.automatique) {
             this.scheduleAtFixedRate(new TimerTaskPartie(this.partie), 0, 1000);
         }
@@ -55,11 +57,14 @@ public class TimerPartie extends Timer {
         //ce qu'il se passe lors du tour des zombies
         private void tourDesZombies() {
             System.out.println("Tour des Zombies !");
+            //carte.BougerVaisseau(partie.getZombificatorPosition(), cas);
         }
             
         //ce qu'il se passe lors du tour des licornes
-        private void tourDesLicornes() {      
+        private void tourDesLicornes() {
             System.out.println("Tour des Licornes !");
+            //carte.BougerVaisseau(partie.getLicoShipPosition(), cas);
+
         }
     }    
 }
