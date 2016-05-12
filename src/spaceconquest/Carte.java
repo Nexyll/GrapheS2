@@ -230,6 +230,7 @@ public class Carte {
                 if(this.getCase(c).getCouleur() != Couleur.Blanc.getCouleur()) {
 
                     this.BougerVaisseau(this.caseSelectionnee, c);
+                    System.out.println(caseSelectionnee.toString() + c.toString());
                     //on déselectionne la case
                     this.effacerColoration();
                     this.caseSelectionnee = null;

@@ -63,7 +63,7 @@ public class TimerPartie extends Timer {
             int i = dijkstra.sommetIntermediaire(carte.coords(partie.getZombificatorPosition()), carte.coords(partie.getLicoShipPosition()), 2);
             int x = ((i+1) % carte.getTaille() != 0) ? (i+1) % carte.getTaille() : carte.getTaille();
             int y = ((i+1) - x) / carte.getTaille() + 1;
-            System.out.println(i);
+            System.out.println(partie.getZombificatorPosition());
             carte.BougerVaisseau(partie.getZombificatorPosition(),  new Couple(y, x));
         }
             
@@ -72,7 +72,7 @@ public class TimerPartie extends Timer {
             System.out.println("Tour des Licornes !");
             Dijkstra dijkstra = new Dijkstra(carte.getGrapheLicorne());
             int i = dijkstra.sommetIntermediaire(carte.coords(partie.getLicoShipPosition()), carte.coords(partie.getLicoLandPosition()), 2);
-            System.out.println(i);
+            System.out.println(partie.getLicoShipPosition());
             int x = ((i+1) % carte.getTaille() != 0) ? (i+1) % carte.getTaille() : carte.getTaille();
             int y = ((i+1) - x) / carte.getTaille() + 1;
             carte.BougerVaisseau(partie.getLicoShipPosition(),  new Couple(y, x));
