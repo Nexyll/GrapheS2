@@ -35,8 +35,10 @@ public class SpaceConquest {
         partie = new Partie(5);
         
         //ajout des éléments clé de la partie
-        partie.placerLicoLand(2, 2);
+        partie.placerLicoLand(5, 2);
+        partie.placerShadoLand(7, 3);
         partie.placerLicoShip(5, 5);
+        partie.placerShadoko(6, 3);
         partie.placerZombificator(10, 3);
         
         //placement des objets célestes

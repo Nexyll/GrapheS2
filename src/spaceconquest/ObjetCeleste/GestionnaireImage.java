@@ -19,7 +19,8 @@ public class GestionnaireImage {
     private static GestionnaireImage instance;                                  //instance de singleton
     
     private BufferedImage fond = null;                                          //image de fond
-    private BufferedImage planete = null;                                       //image de la planete
+    private BufferedImage planeteLicorne = null;                                //image de la planete des licornes
+    private BufferedImage planeteShadok = null;                                 //Image de la plante des shadoks
     private BufferedImage etoile = null;                                        //image d'une étoile
     private BufferedImage asteroide = null;                                     //image d'un astéroide
     private HashMap<Race,BufferedImage> vaisseaux;                              //images des vaisseaux
@@ -30,15 +31,18 @@ public class GestionnaireImage {
         try {
             //chargement des images en mémoire
              this.fond = ImageIO.read(SpaceConquest.class.getResource("/fond.jpg"));
-             this.planete = ImageIO.read(SpaceConquest.class.getResource("/planete.png"));
+             this.planeteLicorne = ImageIO.read(SpaceConquest.class.getResource("/planeteLicorne.png"));
+             this.planeteShadok = ImageIO.read(SpaceConquest.class.getResource("/planeteShadok.png"));
              this.etoile = ImageIO.read(SpaceConquest.class.getResource("/etoile.png"));
              this.asteroide = ImageIO.read(SpaceConquest.class.getResource("/asteroide.png"));
              this.vaisseaux = new HashMap<>();
              this.vaisseaux.put(Race.Zombie, ImageIO.read(SpaceConquest.class.getResource("/vaisseauZombie.png")));
              this.vaisseaux.put(Race.Licorne, ImageIO.read(SpaceConquest.class.getResource("/vaisseauLicorne.png")));
+             this.vaisseaux.put(Race.Shadok, ImageIO.read(SpaceConquest.class.getResource("/vaisseauShadok.png")));
              this.joueurs = new HashMap<>();
              this.joueurs.put(Race.Zombie, ImageIO.read(SpaceConquest.class.getResource("/zombie.png")));
              this.joueurs.put(Race.Licorne, ImageIO.read(SpaceConquest.class.getResource("/licorne.png")));
+             this.joueurs.put(Race.Shadok, ImageIO.read(SpaceConquest.class.getResource("/shadok.png")));
         }
         catch (IOException e) {
             //gestion d'erreur
@@ -59,10 +63,12 @@ public class GestionnaireImage {
     public BufferedImage getImageFond() {
         return this.fond;
     }
-    //getteur de l'image d'une planete
-    public BufferedImage getImagePlanete() {
-        return this.planete;
+    //getteur de l'image de la planete licorne
+    public BufferedImage getImagePlaneteLicorne() {
+        return this.planeteLicorne;
     }
+    //getteur de l'image de la planete shadok
+    public BufferedImage getImagePlaneteShadok() { return  this.planeteShadok; }
     //getteur de l'image d'un astéroide
     public BufferedImage getImageAsteroide() {
         return this.asteroide;

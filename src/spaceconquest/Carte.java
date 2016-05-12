@@ -3,7 +3,8 @@
  */
 package spaceconquest;
 
-import java.util.HashMap;   
+import java.util.ArrayList;
+import java.util.HashMap;
 import spaceconquest.Map.Case;
 import spaceconquest.Map.Couleur;
 import spaceconquest.Map.Couple;
@@ -55,19 +56,19 @@ public class Carte {
             //Colonne
              for (int i = 1; i <= taille; i++){
                  if(j+1<= taille*3)
-                     graphe.ajouterArc(coords(i, j), coords(i, j+1), 1);
+                     graphe.ajouterDeuxArc(coords(i, j), coords(i, j+1), 1);
                  if(j+2<= taille*3)
-                     graphe.ajouterArc(coords(i, j), coords(i, j+2), 1);
+                     graphe.ajouterDeuxArc(coords(i, j), coords(i, j+2), 1);
                  
                  //Numéro de ligne pair
                  if(j%2 == 0){
                     if(i-1>0 && j+1 <= taille*3)
-                        graphe.ajouterArc(coords(i, j), coords(i-1, j+1), 1);
+                        graphe.ajouterDeuxArc(coords(i, j), coords(i-1, j+1), 1);
                  }
                  //Numéro de ligne impair
                  else{
                      if(i+1<= taille && j+1<=taille*3)
-                        graphe.ajouterArc(coords(i, j), coords(i+1, j+1), 1);
+                        graphe.ajouterDeuxArc(coords(i, j), coords(i+1, j+1), 1);
                  }
             }
         }
@@ -107,7 +108,15 @@ public class Carte {
                     if(obj.getType().equalsIgnoreCase("etoile"))
                         graphe.isolerSommet(coords(j, i));
                     if(obj.getType().equalsIgnoreCase("asteroide"))
-                         graphe.ajouterContrainte(coords(j, i), taille);
+                         graphe.ajouterContrainte(coords(j, i));
+                }
+                Vaisseau vaisseau = getCase(i, j).getVaisseau();
+                if (vaisseau!=null){
+                    if(vaisseau.getRace()==Race.Zombie)
+                        graphe.isolerSommet(coords(j, i));
+                    if (vaisseau.getRace() == Race.Shadok){
+                        System.out.println("C'est compliqué");
+                    }
                 }
             }
         }
@@ -144,7 +153,7 @@ public class Carte {
         
         //On à besoin des sommets en relation avec le sommet coords(c.getX, c.getY)
         int numSommet = coords(c);
-        int[] dist = calculateur.calcul(numSommet);
+        int[] dist = calculateur.tableauDistance(numSommet);
         for(int i = 0 ; i < g.getNbSommet(); i++) {
             int x = ((i+1) % taille != 0) ? (i+1) % taille : taille;
             int y = ((i+1) - x) / taille + 1;
@@ -159,7 +168,7 @@ public class Carte {
             }
         }
     }
-    
+
     //getteur de la taille de la map
     public int getTaille() {
         return this.taille;
