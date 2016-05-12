@@ -39,13 +39,22 @@ public class Dijkstra {
 
     public int sommetIntermediaire(int sommetDepart, int cible, int contrainte){
         calcul(cible);
-        ArrayList<Integer> chemin = new ArrayList<Integer>();
-        int pred = pi[cible];
-        chemin.add(pi[cible]);
-        while(pred != -1){
+        ArrayList<Integer> chemin = new ArrayList<>();
 
+        int pred = pi[cible];
+        chemin.add(cible);
+        chemin.add(pi[pred]);
+        while(pred != -1){
+            pred = pi[pred];
+            chemin.add(pred);
         }
-    return 0;
+
+        for (int sommet : chemin){
+            if (d[sommet] <= contrainte){
+                return sommet;
+            }
+        }
+        return sommetDepart; // Si jamais aucun sommet n'a été trouvé, on ne bouge pas.
     }
 
     private boolean nonMarque(){
