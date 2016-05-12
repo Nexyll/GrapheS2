@@ -217,7 +217,7 @@ public class Carte {
             if(this.caseSelectionnee != null) {
                 //ajouter des conditions de déplacement
                 //on fait bouger le vaisseau
-                if(this.getCase(caseSelectionnee).getCouleur()!=Couleur.Blanc.getCouleur()) {
+                if(!this.getCase(c).getCouleur().equals(Couleur.Blanc.getCouleur())) {
                     this.BougerVaisseau(this.caseSelectionnee, c);
                     //on déselectionne la case
                     this.effacerColoration();
