@@ -1,5 +1,6 @@
 package spaceconquest;
 
+
 import java.util.ArrayList;
 
 public class Dijkstra {
@@ -19,32 +20,32 @@ public class Dijkstra {
         initialisation();
     }
 
-    public int[] calcul(int arg){
-        int a = arg-1;
+    private void calcul(int sommetDepart){
+        int a = sommetDepart-1;
         d[a] = 0;
         while (nonMarque()){
             a = premierSommetMinimum();
             mark[a] = true;
-
             for (int b = 0; b < g.getNbSommet(); b++) {
                 relachement(a, b);
             }
         }
+    }
 
+    public int[] tableauDistance(int sommetDepart){
+        calcul(sommetDepart);
         return d;
     }
 
-    public int plusCourtChemin(int a){
-        int tab[] = calcul(a);
-        int min = infini;
-        int res = -1;
-        for (int i = 0; i < tab.length; i++) {
-            if (min > tab[i]){
-                min = tab[i];
-                res = i;
-            }
+    public int sommetIntermediaire(int sommetDepart, int cible, int contrainte){
+        calcul(cible);
+        ArrayList<Integer> chemin = new ArrayList<Integer>();
+        int pred = pi[cible];
+        chemin.add(pi[cible]);
+        while(pred != -1){
+
         }
-        return res;
+    return 0;
     }
 
     private boolean nonMarque(){
