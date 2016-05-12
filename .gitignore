@@ -13,9 +13,6 @@ hs_err_pid*
 
 # Ajout des ignores pour NetBean, IntelliJ et java #
 
-*.png
-*.jpg
-Images/
 dist/
 build/
 .idea/
