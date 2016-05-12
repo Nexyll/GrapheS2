@@ -38,10 +38,10 @@ public class Dijkstra {
     }
 
     public int sommetIntermediaire(int sommetDepart, int cible, int contrainte){
-        calcul(cible);
+        calcul(sommetDepart);
         ArrayList<Integer> chemin = new ArrayList<>();
 
-        int pred = pi[cible];
+        int pred = pi[cible-1];
         chemin.add(cible);
         chemin.add(pi[pred]);
         while(pred != -1){

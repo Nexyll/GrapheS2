@@ -131,4 +131,8 @@ public class Partie {
         
         Graphe licorne = carte.getGrapheLicorne();
     }
+
+    public Couple getLicoLandPosition() {
+        return LicoLand.getPosition();
+    }
 }

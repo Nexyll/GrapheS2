@@ -36,11 +36,11 @@ public class Carte {
         this.caseSelectionnee = null;
     }
     
-    private int coords(int i, int j){
+    public int coords(int i, int j){
         return (j-1)*taille +i;
     }
     
-    private int coords(Couple c){
+    public int coords(Couple c){
         return (c.getX()-1)*taille +c.getY();
     }
     
@@ -212,6 +212,7 @@ public class Carte {
         }
         this.getCase(arrivee).addVaisseau(this.getCase(depart).getVaisseau());
         this.getCase(depart).addVaisseau(null);
+        System.out.println("Vaisseau déplacé en : " + arrivee.toString());
     }
     
     //méthode gérant ce qu'il se passe quand on clique sur une case en mode manuel

@@ -5,6 +5,8 @@ package spaceconquest;
 
 import java.util.TimerTask;
 import java.util.Timer;
+
+import spaceconquest.Map.Couple;
 import spaceconquest.Parties.Mode;
 
 /**
@@ -57,14 +59,23 @@ public class TimerPartie extends Timer {
         //ce qu'il se passe lors du tour des zombies
         private void tourDesZombies() {
             System.out.println("Tour des Zombies !");
-            //carte.BougerVaisseau(partie.getZombificatorPosition(), cas);
+            Dijkstra dijkstra = new Dijkstra(carte.getGrapheZombie());
+            int i = dijkstra.sommetIntermediaire(carte.coords(partie.getZombificatorPosition()), carte.coords(partie.getLicoShipPosition()), 2);
+            int x = ((i+1) % carte.getTaille() != 0) ? (i+1) % carte.getTaille() : carte.getTaille();
+            int y = ((i+1) - x) / carte.getTaille() + 1;
+            System.out.println(i);
+            carte.BougerVaisseau(partie.getZombificatorPosition(),  new Couple(y, x));
         }
             
         //ce qu'il se passe lors du tour des licornes
         private void tourDesLicornes() {
             System.out.println("Tour des Licornes !");
-            //carte.BougerVaisseau(partie.getLicoShipPosition(), cas);
-
+            Dijkstra dijkstra = new Dijkstra(carte.getGrapheLicorne());
+            int i = dijkstra.sommetIntermediaire(carte.coords(partie.getLicoShipPosition()), carte.coords(partie.getLicoLandPosition()), 2);
+            System.out.println(i);
+            int x = ((i+1) % carte.getTaille() != 0) ? (i+1) % carte.getTaille() : carte.getTaille();
+            int y = ((i+1) - x) / carte.getTaille() + 1;
+            carte.BougerVaisseau(partie.getLicoShipPosition(),  new Couple(y, x));
         }
     }    
 }
