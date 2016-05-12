@@ -26,5 +26,6 @@ public enum Couleur {
     public Color getCouleur() {
         return this.couleur;
     }
+
     
 }
