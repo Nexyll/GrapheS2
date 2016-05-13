@@ -20,18 +20,6 @@ public class Dijkstra {
         initialisation();
     }
 
-    private void calcul(int sommetDepart){
-        int a = sommetDepart-1;
-        d[a] = 0;
-        while (nonMarque()){
-            a = premierSommetMinimum();
-            mark[a] = true;
-            for (int b = 0; b < g.getNbSommet(); b++) {
-                relachement(a, b);
-            }
-        }
-    }
-
     /**
      *
      * @param sommetDepart Sommet de départ pour le calcul de Dijkstra.
@@ -91,6 +79,19 @@ public class Dijkstra {
         return listeSommetsAccessibles;
     }
 
+// Méthodes privées
+
+    private void calcul(int sommetDepart){
+        int a = sommetDepart-1;
+        d[a] = 0;
+        while (nonMarque()){
+            a = premierSommetMinimum();
+            mark[a] = true;
+            for (int b = 0; b < g.getNbSommet(); b++) {
+                relachement(a, b);
+            }
+        }
+    }
 
     private boolean nonMarque(){
         for (boolean res : mark){
