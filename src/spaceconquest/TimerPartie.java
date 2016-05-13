@@ -3,6 +3,7 @@
  */
 package spaceconquest;
 
+import java.util.ArrayList;
 import java.util.TimerTask;
 import java.util.Timer;
 
@@ -60,9 +61,15 @@ public class TimerPartie extends Timer {
 
         private void tourDesShadok() {
             System.out.println("Tour des Shadok !");
-            //Dijkstra dijkstra = new Dijkstra();
-            carte.colorationMouvements(partie.getShadokoPosition(), carte.getGrapheShadok(carte.coords(partie.getShadoLandPosition()), carte.coords(partie.getShadokoPosition())));
-            stop();
+            Graphe graphe = carte.getGrapheShadok(carte.coords(partie.getShadoLandPosition()), carte.coords(partie.getShadokoPosition()));
+            Dijkstra dijkstra = new Dijkstra(graphe);
+            ArrayList<Integer> sommetAccessible = dijkstra.sommetsAccessibles(carte.coords(partie.getShadokoPosition()), 2);
+            int i = sommetAccessible.get((int)(Math.random()*(sommetAccessible.size()-1)));
+            int x = ((i+1) % carte.getTaille() != 0) ? (i+1) % carte.getTaille() : carte.getTaille();
+            int y = ((i+1) - x) / carte.getTaille() + 1;
+            Couple couple = new Couple (y, x);
+            carte.BougerVaisseau(partie.getShadokoPosition(), couple);
+            carte.colorationCase(couple, Couleur.Rouge);
         }
 
         //ce qu'il se passe lors du tour des zombies

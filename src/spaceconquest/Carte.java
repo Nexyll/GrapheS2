@@ -101,9 +101,22 @@ public class Carte {
                 if (vaisseau!=null){
                     if(vaisseau.getRace()==Race.Zombie)
                         graphe.isolerSommet(coords(j, i));
+                    /*
+                    if(vaisseau.getRace()==Race.Shadok){
+                        Dijkstra dijkstra = new Dijkstra(getGrapheZombie());
+                        int[] distShadok = dijkstra.tableauDistance(coords(vaisseau.getPosition()));
+
+                        for (int k = 1; k <= graphe.getNbSommet(); k++) {
+                            if (distShadok[k-1] <= 2) {
+                                graphe.isolerSommet(k);
+                            }
+                        }
+                    }*/
                 }
             }
         }
+
+
         return graphe;
     }
 
@@ -239,7 +252,12 @@ public class Carte {
                         //on selectionne la case
                         this.getCase(c).setCouleur(Couleur.Rouge);
                         this.caseSelectionnee = c;
-                        colorationMouvements(c, (SpaceConquest.getTour() == Race.Zombie) ? getGrapheZombie() : getGrapheLicorne());
+                        switch (SpaceConquest.getTour()){
+                            case Zombie: colorationMouvements(c, getGrapheZombie()); break;
+                            case Licorne: colorationMouvements(c, getGrapheLicorne()); break;
+                            case Shadok: colorationMouvements(c, getGrapheZombie()); break;
+                        }
+                        //colorationMouvements(c, (SpaceConquest.getTour() == Race.Zombie) ? getGrapheZombie() : getGrapheLicorne());
                     }
                 }
             }

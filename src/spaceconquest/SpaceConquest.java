@@ -48,7 +48,7 @@ public class SpaceConquest {
         partie.placerObjetCeleste(new Asteroide(), 5, 3);
                 
         //on definit le mode de jeu
-        partie.setMode(Mode.automatique);
+        partie.setMode(Mode.manuel);
         //on lance l'IHM
 
         partie.start();

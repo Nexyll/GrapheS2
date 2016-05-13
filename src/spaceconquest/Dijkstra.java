@@ -69,7 +69,7 @@ public class Dijkstra {
                 listeSommetsAccessibles.add(sommet);
         }
 
-        listeSommetsAccessibles.remove(sommetDepart);       //On supprime le sommet de départ.
+        listeSommetsAccessibles.remove(new Integer(sommetDepart));
         return listeSommetsAccessibles;
     }
 
