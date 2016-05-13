@@ -6,9 +6,12 @@ package spaceconquest;
 import java.util.ArrayList;
 import java.util.TimerTask;
 import java.util.Timer;
+import java.util.concurrent.ThreadPoolExecutor;
 
 import spaceconquest.Map.Couleur;
 import spaceconquest.Map.Couple;
+import spaceconquest.ObjetCeleste.ObjetCeleste;
+import spaceconquest.ObjetCeleste.PlaneteLicorne;
 import spaceconquest.Parties.Mode;
 
 /**
@@ -86,16 +89,40 @@ public class TimerPartie extends Timer {
             
         //ce qu'il se passe lors du tour des licornes
         private void tourDesLicornes() {
+            ArrayList<PlaneteLicorne> listPlanetesLicornes = new ArrayList<>();
+
+            for (int i = 1; i <= carte.getTaille()*3; i++) {
+                for (int j = 1; j <= carte.getTaille(); j++) {
+                    ObjetCeleste obj = carte.getCase(i, j).getObjetCeleste();
+                    if (obj != null) {
+                        if(obj.getType().equalsIgnoreCase("planete licorne"))
+                            listPlanetesLicornes.add((PlaneteLicorne)obj);
+                    }
+                }
+            }
+            int distanceMin = 9999;
+            Couple minCible = partie.getLicoLandPosition();
+            for (PlaneteLicorne p : listPlanetesLicornes){
+                Dijkstra d = new Dijkstra(carte.getGrapheLicorne());
+                int i = carte.coords(p.getPosition());
+                int[] dist = d.tableauDistance(i);
+                if (dist[i] < distanceMin) {
+                    distanceMin = dist[i];
+                    minCible = p.getPosition();
+                }
+            }
             System.out.println("Tour des Licornes !");
             Dijkstra dijkstra = new Dijkstra(carte.getGrapheLicorne());
-            int i = dijkstra.sommetIntermediaire(carte.coords(partie.getLicoShipPosition()), carte.coords(partie.getLicoLandPosition()), 2);
+            int i = dijkstra.sommetIntermediaire(carte.coords(partie.getLicoShipPosition()), carte.coords(minCible), 2);
             int x = ((i+1) % carte.getTaille() != 0) ? (i+1) % carte.getTaille() : carte.getTaille();
             int y = ((i+1) - x) / carte.getTaille() + 1;
             Couple couple = new Couple (y, x);
             carte.BougerVaisseau(partie.getLicoShipPosition(),  couple);
             carte.colorationCase(couple, Couleur.Vert);
-            if (partie.getLicoLandPosition().equals(partie.getLicoShipPosition()))
-                stop();
+            for (PlaneteLicorne p : listPlanetesLicornes) {
+                if (p.getPosition().equals(partie.getLicoShipPosition()))
+                    stop();
+            }
         }
     }    
 }
