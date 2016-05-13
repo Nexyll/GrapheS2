@@ -23,10 +23,6 @@ public class ControleurCarte implements MouseListener {
         this.panel = _panel;
     }
 
-    public void selectionCase(Couple c){
-        this.panel.selectionCase(c);
-    }
-
     //Action lors du click de la souris
     @Override
     public void mouseClicked(MouseEvent me) {

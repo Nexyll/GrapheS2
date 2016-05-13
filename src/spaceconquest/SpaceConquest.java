@@ -39,7 +39,7 @@ public class SpaceConquest {
         partie.placerShadoLand(7, 3);
         partie.placerLicoShip(5, 5);
         partie.placerShadoko(6, 3);
-        partie.placerZombificator(10, 3);
+        partie.placerZombificator(15, 5);
         
         //placement des objets célestes
         partie.placerObjetCeleste(new Etoile(), 3, 3);

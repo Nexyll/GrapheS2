@@ -9,5 +9,5 @@ package spaceconquest.Parties;
  */
 public enum Mode {
     manuel,
-    automatique;
+    automatique
 }

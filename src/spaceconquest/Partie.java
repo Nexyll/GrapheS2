@@ -105,7 +105,7 @@ public class Partie {
         else {
             tour = Race.Zombie;
         }
-        this.fenetre.refreshSide();
+        this.fenetre.refresh();
         
     }
     
@@ -128,8 +128,6 @@ public class Partie {
         timer = new TimerPartie(this);
         //lancement de l'IHM
         this.fenetre = new Fenetre(this.carte);
-        
-        Graphe licorne = carte.getGrapheLicorne();
     }
 
     public Couple getLicoLandPosition() {

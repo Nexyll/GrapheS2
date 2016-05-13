@@ -36,9 +36,10 @@ public class Fenetre extends JFrame {
         
     }
     
-    //recharge la panel latéral
-    public void refreshSide() {
+    //Met à jour les graphismes
+    public void refresh() {
         this.panelSide.repaint();
+        this.panelCarte.repaint();
     }
     
     //gestion de l'affichage

@@ -10,5 +10,5 @@ package spaceconquest.Race;
 public enum Race {
     Zombie,
     Licorne,
-    Shadok;
+    Shadok
 }

@@ -61,6 +61,7 @@ public class TimerPartie extends Timer {
             System.out.println("Tour des Zombies !");
             Dijkstra dijkstra = new Dijkstra(carte.getGrapheZombie());
             int i = dijkstra.sommetIntermediaire(carte.coords(partie.getZombificatorPosition()), carte.coords(partie.getLicoShipPosition()), 2);
+
             int x = ((i+1) % carte.getTaille() != 0) ? (i+1) % carte.getTaille() : carte.getTaille();
             int y = ((i+1) - x) / carte.getTaille() + 1;
             System.out.println(partie.getZombificatorPosition());
