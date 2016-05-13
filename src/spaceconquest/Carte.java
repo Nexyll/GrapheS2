@@ -88,6 +88,18 @@ public class Carte {
     public Graphe getGrapheLicorne(){
         Graphe graphe = new Graphe(taille*taille*3);
         graphe = getGrapheGrille();
+        int sommetLicorne = 0;
+
+        for (int l = 1; l <= graphe.getNbSommet() ; l++) {
+            int x = ((l) % taille != 0) ? (l) % taille : taille;
+            int y = ((l) - x) / taille + 1;
+            Vaisseau vaisseauLic = getCase(y, x).getVaisseau();
+            if (vaisseauLic!=null){
+                if (vaisseauLic.getRace() == Race.Licorne)
+                    sommetLicorne = l;
+            }
+        }
+
         for (int i = 1; i <= taille*3; i++) {
             for (int j = 1; j <= taille; j++) {
                 ObjetCeleste obj = getCase(i, j).getObjetCeleste();
@@ -101,17 +113,18 @@ public class Carte {
                 if (vaisseau!=null){
                     if(vaisseau.getRace()==Race.Zombie)
                         graphe.isolerSommet(coords(j, i));
-                    /*
+
                     if(vaisseau.getRace()==Race.Shadok){
                         Dijkstra dijkstra = new Dijkstra(getGrapheZombie());
                         int[] distShadok = dijkstra.tableauDistance(coords(vaisseau.getPosition()));
 
                         for (int k = 1; k <= graphe.getNbSommet(); k++) {
                             if (distShadok[k-1] <= 2) {
+                                if(k != sommetLicorne)
                                 graphe.isolerSommet(k);
                             }
                         }
-                    }*/
+                    }
                 }
             }
         }
