@@ -45,20 +45,20 @@ public class Dijkstra {
         int pred = pi[cible-1];
         chemin.add(cible-1);
         chemin.add(pred);
-        while(pred != -1){
+
+        while(pred != -1){                                  // Tant qu'on est pas arrivé
             pred = pi[pred];
             if (pred!=-1)
                 chemin.add(pred);
         }
 
         for (int sommet : chemin){
-            if (d[sommet] <= contrainte ){
+            if (d[sommet] <= contrainte ){                  // On retourne le sommet le plus loin possible
                 return sommet;
             }
         }
         return sommetDepart;                                // Si jamais aucun sommet n'a été trouvé, on ne bouge pas.
     }
-
 
     public ArrayList<Integer> sommetsAccessibles(int sommetDepart, int contrainte){
         calcul(sommetDepart);
