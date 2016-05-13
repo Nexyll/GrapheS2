@@ -32,11 +32,23 @@ public class Dijkstra {
         }
     }
 
+    /**
+     *
+     * @param sommetDepart Sommet de départ pour le calcul de Dijkstra.
+     * @return Liste des distances par rapport au sommet principal (indexé par les sommets).
+     */
     public int[] tableauDistance(int sommetDepart){
         calcul(sommetDepart);
         return d;
     }
 
+    /**
+     *
+     * @param sommetDepart Sommet de départ pour le calcul de Dijkstra.
+     * @param cible Sommet à atteindre
+     * @param contrainte Contrainte sur le poids maximal du déplacement.
+     * @return numéro du sommet qui convient aux contraintes
+     */
     public int sommetIntermediaire(int sommetDepart, int cible, int contrainte){
         calcul(sommetDepart);
 
@@ -60,18 +72,25 @@ public class Dijkstra {
         return sommetDepart;                                // Si jamais aucun sommet n'a été trouvé, on ne bouge pas.
     }
 
+    /**
+     *
+     * @param sommetDepart Sommet de départ pour le calcul de Dijkstra.
+     * @param contrainte Poids maximal pour qu'un sommet soit accessible.
+     * @return Liste de sommets accessibles.
+     */
     public ArrayList<Integer> sommetsAccessibles(int sommetDepart, int contrainte){
         calcul(sommetDepart);
         ArrayList<Integer> listeSommetsAccessibles = new ArrayList<>();
 
         for (int sommet = 0; sommet < d.length; sommet++) {
-            if (d[sommet] <= contrainte)                    // On ajoute le sommet seulement si le poid est inférieur à la contrainte
+            if (d[sommet] <= contrainte)                    // On ajoute le sommet seulement si le poids est inférieur à la contrainte
                 listeSommetsAccessibles.add(sommet);
         }
 
         listeSommetsAccessibles.remove(sommetDepart);       //On supprime le sommet de départ.
         return listeSommetsAccessibles;
     }
+
 
     private boolean nonMarque(){
         for (boolean res : mark){
