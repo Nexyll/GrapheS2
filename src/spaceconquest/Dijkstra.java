@@ -4,7 +4,7 @@ package spaceconquest;
 import java.util.ArrayList;
 
 public class Dijkstra {
-    private Graphe g; // ne se change pas.
+    private Graphe g;
     private int infini;
     private boolean mark[];
     private int pi[];
@@ -14,7 +14,7 @@ public class Dijkstra {
         this.g = g;
         mark = new boolean[g.getNbSommet()];
         pi = new int[g.getNbSommet()];
-        d = new int[g.getNbSommet()]; //On a un tableau d'entier car les distances sont des entiers.
+        d = new int[g.getNbSommet()];                       //On a un tableau d'entier car les distances sont des entiers.
 
         calculInfini();
         initialisation();
@@ -56,7 +56,21 @@ public class Dijkstra {
                 return sommet;
             }
         }
-        return sommetDepart; // Si jamais aucun sommet n'a été trouvé, on ne bouge pas.
+        return sommetDepart;                                // Si jamais aucun sommet n'a été trouvé, on ne bouge pas.
+    }
+
+
+    public ArrayList<Integer> sommetsAccessibles(int sommetDepart, int contrainte){
+        calcul(sommetDepart);
+        ArrayList<Integer> listeSommetsAccessibles = new ArrayList<>();
+
+        for (int sommet = 0; sommet < d.length; sommet++) {
+            if (d[sommet] <= contrainte)                    // On ajoute le sommet seulement si le poid est inférieur à la contrainte
+                listeSommetsAccessibles.add(sommet);
+        }
+
+        listeSommetsAccessibles.remove(sommetDepart);       //On supprime le sommet de départ.
+        return listeSommetsAccessibles;
     }
 
     private boolean nonMarque(){
