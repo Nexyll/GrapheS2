@@ -39,18 +39,20 @@ public class Dijkstra {
 
     public int sommetIntermediaire(int sommetDepart, int cible, int contrainte){
         calcul(sommetDepart);
+
         ArrayList<Integer> chemin = new ArrayList<>();
 
         int pred = pi[cible-1];
-        chemin.add(cible);
-        chemin.add(pi[pred]);
+        chemin.add(cible-1);
+        chemin.add(pred);
         while(pred != -1){
             pred = pi[pred];
-            chemin.add(pred);
+            if (pred!=-1)
+                chemin.add(pred);
         }
 
         for (int sommet : chemin){
-            if (d[sommet] <= contrainte){
+            if (d[sommet] <= contrainte ){
                 return sommet;
             }
         }

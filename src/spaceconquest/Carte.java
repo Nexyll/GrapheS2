@@ -43,12 +43,7 @@ public class Carte {
     public int coords(Couple c){
         return (c.getX()-1)*taille +c.getY();
     }
-    
-    /**
-     * Mouvement manquant, exemple de 1 à 7 methode à tester
-     * Peut encore être optimisé (calcule de taille*3) test j+1 etc...
-     * @return graphe correspondant à la grille
-     */
+
     public Graphe getGrapheGrille(){
         Graphe graphe = new Graphe(taille*taille*3);
         //Ligne
@@ -74,11 +69,7 @@ public class Carte {
         }
         return graphe;
     }
-    
-    /**
-     * 
-     * @return graphe correspondant au déplacement des zombies
-     */
+
     public Graphe getGrapheZombie(){
         Graphe graphe = new Graphe(taille*taille*3);
         graphe = getGrapheGrille();
@@ -93,11 +84,7 @@ public class Carte {
         }
         return graphe;
     }
-    
-    /**
-     * 
-     * @return graphe correspondant au déplacement des licornes.
-     */
+
     public Graphe getGrapheLicorne(){
         Graphe graphe = new Graphe(taille*taille*3);
         graphe = getGrapheGrille();
@@ -119,10 +106,16 @@ public class Carte {
         }
         return graphe;
     }
-    
-    /**
-     * Colore toute les cases de la carte en blanc
-     */
+
+    public Graphe getGrapheShadok(){
+        Graphe graphe = getGrapheGrille();
+        for (int i = 1; i <= taille*3; i++) {
+            for (int j = 1; j <= taille; j++) {
+
+            }
+        }
+        return graphe;
+    }
     public void effacerColoration(){
         for(int i = 1;i <= 3*taille; i++) {
             for(int j = 1; j <= taille; j++) {
@@ -132,12 +125,7 @@ public class Carte {
             }
         }
     }
-    
-    /**
-     * 
-     * @param c case départ ?
-     * @param g graphe modélisant les contraintes de déplacements
-     */
+
     public void colorationMouvements(Couple c, Graphe g){
         //Réinitialisation de la coloration
         this.effacerColoration();
@@ -166,6 +154,9 @@ public class Carte {
         }
     }
 
+    public void colorationCase(Couple c, Couleur col){
+        getCase(c).setCouleur(col);
+    }
     //getteur de la taille de la map
     public int getTaille() {
         return this.taille;
@@ -211,7 +202,7 @@ public class Carte {
         this.getCase(depart).getVaisseau().setPosition(arrivee);
         this.getCase(depart).addVaisseau(null);
     }
-    
+
     //méthode gérant ce qu'il se passe quand on clique sur une case en mode manuel
     public void selectionCase(Couple c) {
         if(c.equals(this.caseSelectionnee)) {

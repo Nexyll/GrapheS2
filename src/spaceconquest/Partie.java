@@ -99,11 +99,10 @@ public class Partie {
     
     //passe le tour (dans les deux modes de jeu)
     public void tourSuivant() {
-        if(tour == Race.Zombie) {
-            tour = Race.Licorne;
-        }
-        else {
-            tour = Race.Zombie;
+        switch(tour){
+            case Licorne: tour = Race.Zombie; break;
+            case Zombie: tour = Race.Shadok; break;
+            case Shadok: tour = Race.Licorne; break;
         }
         this.fenetre.refresh();
         
