@@ -114,9 +114,6 @@ public class Carte {
                 if (vaisseau!=null){
                     if(vaisseau.getRace()==Race.Zombie)
                         graphe.isolerSommet(coords(j, i));
-                    if (vaisseau.getRace() == Race.Shadok){
-                        System.out.println("C'est compliqué");
-                    }
                 }
             }
         }
@@ -211,8 +208,8 @@ public class Carte {
             this.getCase(arrivee).getVaisseau().setPosition(null);
         }
         this.getCase(arrivee).addVaisseau(this.getCase(depart).getVaisseau());
+        this.getCase(depart).getVaisseau().setPosition(arrivee);
         this.getCase(depart).addVaisseau(null);
-        System.out.println("Vaisseau déplacé en : " + arrivee.toString());
     }
     
     //méthode gérant ce qu'il se passe quand on clique sur une case en mode manuel
@@ -230,7 +227,6 @@ public class Carte {
                 if(this.getCase(c).getCouleur() != Couleur.Blanc.getCouleur()) {
 
                     this.BougerVaisseau(this.caseSelectionnee, c);
-                    System.out.println(caseSelectionnee.toString() + c.toString());
                     //on déselectionne la case
                     this.effacerColoration();
                     this.caseSelectionnee = null;
