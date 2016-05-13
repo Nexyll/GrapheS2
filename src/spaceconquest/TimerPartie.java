@@ -60,7 +60,9 @@ public class TimerPartie extends Timer {
 
         private void tourDesShadok() {
             System.out.println("Tour des Shadok !");
-
+            //Dijkstra dijkstra = new Dijkstra();
+            carte.colorationMouvements(partie.getShadokoPosition(), carte.getGrapheShadok(carte.coords(partie.getShadoLandPosition()), carte.coords(partie.getShadokoPosition())));
+            stop();
         }
 
         //ce qu'il se passe lors du tour des zombies
@@ -84,7 +86,7 @@ public class TimerPartie extends Timer {
             int y = ((i+1) - x) / carte.getTaille() + 1;
             Couple couple = new Couple (y, x);
             carte.BougerVaisseau(partie.getLicoShipPosition(),  couple);
-            carte.colorationCase(couple, Couleur.Rouge);
+            carte.colorationCase(couple, Couleur.Vert);
             if (partie.getLicoLandPosition().equals(partie.getLicoShipPosition()))
                 stop();
         }

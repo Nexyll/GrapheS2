@@ -107,11 +107,17 @@ public class Carte {
         return graphe;
     }
 
-    public Graphe getGrapheShadok(){
+    public Graphe getGrapheShadok(int sommetPlanete, int sommetVaisseau){
         Graphe graphe = getGrapheGrille();
-        for (int i = 1; i <= taille*3; i++) {
-            for (int j = 1; j <= taille; j++) {
+        Dijkstra dijkstra = new Dijkstra(getGrapheZombie());
+        int[] distPlanete = dijkstra.tableauDistance(sommetPlanete);
+        int[] distVaisseau = dijkstra.tableauDistance(sommetVaisseau);
 
+        graphe.isolerSommet(sommetPlanete);
+
+        for (int i = 1; i <= graphe.getNbSommet(); i++) {
+            if (distPlanete[i-1]  > 3) {
+                graphe.isolerSommet(i);
             }
         }
         return graphe;

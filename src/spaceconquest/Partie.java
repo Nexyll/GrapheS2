@@ -4,6 +4,7 @@
 package spaceconquest;
 
 import spaceconquest.IHM.Fenetre;
+import spaceconquest.Map.Couleur;
 import spaceconquest.Map.Couple;
 import spaceconquest.ObjetCeleste.ObjetCeleste;
 import spaceconquest.ObjetCeleste.PlaneteLicorne;
@@ -117,6 +118,14 @@ public class Partie {
         return LicoShip.getPosition();
     }
 
+    public Couple getLicoLandPosition() {
+        return LicoLand.getPosition();
+    }
+
+    public Couple getShadokoPosition() { return Shadoko.getPosition(); }
+
+    public Couple getShadoLandPosition() { return ShadoLand.getPosition(); }
+
     public Couple getZombificatorPosition(){
         return Zombificator.getPosition();
     }
@@ -129,7 +138,5 @@ public class Partie {
         this.fenetre = new Fenetre(this.carte);
     }
 
-    public Couple getLicoLandPosition() {
-        return LicoLand.getPosition();
-    }
+
 }
